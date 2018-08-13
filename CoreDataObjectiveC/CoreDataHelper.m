@@ -38,9 +38,47 @@
     entity.sex = sexPerson;
     if (![context save:&error]) {
         NSLog(@"Failed to save - error: %@", [error localizedDescription]);
+    }else{
+        NSLog(@"Save Succes");
     }
 }
 //Delete Person in People
-
+-(void)deleteFavoriteWith{
+    NSError *error;
+    NSManagedObjectContext *context = [[AppDelegate shared] persistentContainer].viewContext;
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Person" inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    NSArray *people = [context executeFetchRequest:fetchRequest error:&error];
+    for (NSManagedObject *managerObject in people){
+        [context deleteObject:managerObject];
+    }
+    if (![context save:&error]) {
+        NSLog(@"Failed to delete - error: %@", [error localizedDescription]);
+    }else{
+        NSLog(@"Delete Succes");
+    }
+}
+//edit and update Person in people
+- (void)updatePerson: (NSString *)namePerson withAge:(int)agePerson with:(BOOL)sexPerson{
+    NSError *error;
+    NSManagedObjectContext *context = [[AppDelegate shared] persistentContainer].viewContext;
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Person" inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    [fetchRequest setFetchLimit:1];
+    
+    NSArray *people = [context executeFetchRequest:fetchRequest error:&error];
+    Person *person = people[0];
+    person.name = namePerson;
+    person.age = agePerson;
+    person.sex = sexPerson;
+    
+    if (![context save:&error]) {
+        NSLog(@"Failed to edit - error: %@", [error localizedDescription]);
+    }else{
+        NSLog(@"Edit Succes");
+    }
+}
 @end
 

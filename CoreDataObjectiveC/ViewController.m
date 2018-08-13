@@ -23,7 +23,6 @@
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:true];
-    self.sex = true;
     self.nameText.text = self.nameDetail;
     self.ageText.text = [NSString stringWithFormat:@"%d",self.ageDetail];
     if (self.sexDetail == true){
@@ -47,6 +46,10 @@
     [CoreDataHelper.shared innsertPerson:namePerson withAge:agePerson with:sexPerson];
 }
 - (void) editSucces: (id) sender{
+    NSString *namePerson = self.nameText.text;
+    int agePerson = [self.ageText.text intValue];
+    BOOL sexPerson = self.sex;
+    [CoreDataHelper.shared updatePerson:namePerson withAge:agePerson with:sexPerson];
     [self aleartEdit];
 }
 - (IBAction)switchButton:(UISwitch *)sender {

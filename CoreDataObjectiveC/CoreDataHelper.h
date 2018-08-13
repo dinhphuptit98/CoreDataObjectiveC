@@ -14,4 +14,6 @@
 + (CoreDataHelper*)shared;
 - (NSMutableArray *)getDataPerson;
 - (void)innsertPerson: (NSString *)namePerson withAge:(int)agePerson with:(BOOL)sexPerson;
+- (void)deleteFavoriteWith;
+- (void)updatePerson: (NSString *)namePerson withAge:(int)agePerson with:(BOOL)sexPerson;
 @end
